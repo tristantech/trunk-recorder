@@ -378,9 +378,10 @@ void
 p25p1_fdma::process_TTDU()
 {
 	process_duid(framer->duid, framer->nac, NULL, 0);
+	/*
 	if (framer->duid == 0x3 || framer->duid == 0xf) {
 		fprintf (stderr, "Transmission Over\n");
-	}
+	}*/
 	if ((d_do_imbe || d_do_audio_output) && (framer->duid == 0x3 || framer->duid == 0xf)) {  // voice termination
 		op25audio.send_audio_flag(op25_audio::DRAIN);
 	}

@@ -245,9 +245,10 @@ int nonstop_wavfile_sink_impl::dowork(int noutput_items,  gr_vector_const_void_s
       long src_id  = pmt::to_long(tags[i].value);      
       unsigned pos = d_sample_count + (tags[i].offset - nitems_read(0));      
       double   sec = (double)pos  / (double)d_sample_rate;
+  
       if (curr_src_id != src_id) {
         //add_source(src_id, sec);
-        BOOST_LOG_TRIVIAL(trace) << " [" << i << "]-[ " << src_id << " : Pos - " << pos << " offset: " << tags[i].offset - nitems_read(0) << " : " << sec << " ] " << std::endl;
+        BOOST_LOG_TRIVIAL(info) << " [" << i << "]-[ " << src_id << " : Sample - " << pos << " Second: " << sec << " ] " << std::endl;
         curr_src_id = src_id;
       }
     }
