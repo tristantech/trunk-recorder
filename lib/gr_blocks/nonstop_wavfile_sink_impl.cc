@@ -89,6 +89,7 @@ char * nonstop_wavfile_sink_impl::get_filename() {
 }
 
 bool nonstop_wavfile_sink_impl::open(const char *filename) {
+  curr_src_id = 0;
   gr::thread::scoped_lock guard(d_mutex);
   return open_internal(filename);
 }
@@ -240,15 +241,15 @@ int nonstop_wavfile_sink_impl::dowork(int noutput_items,  gr_vector_const_void_s
 
   for (unsigned int i = 0; i < tags.size(); i++) {
     if (pmt::eq(this_key, tags[i].key)) {      
-      /*
+    
       long src_id  = pmt::to_long(tags[i].value);      
       unsigned pos = d_sample_count + (tags[i].offset - nitems_read(0));      
       double   sec = (double)pos  / (double)d_sample_rate;
       if (curr_src_id != src_id) {
-        add_source(src_id, sec);
+        //add_source(src_id, sec);
         BOOST_LOG_TRIVIAL(trace) << " [" << i << "]-[ " << src_id << " : Pos - " << pos << " offset: " << tags[i].offset - nitems_read(0) << " : " << sec << " ] " << std::endl;
         curr_src_id = src_id;
-      }*/
+      }
     }
   }
 

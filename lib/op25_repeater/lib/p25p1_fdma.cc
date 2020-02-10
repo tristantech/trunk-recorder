@@ -378,7 +378,9 @@ void
 p25p1_fdma::process_TTDU()
 {
 	process_duid(framer->duid, framer->nac, NULL, 0);
-
+	if (framer->duid == 0x3 || framer->duid == 0xf) {
+		fprintf (stderr, "Transmission Over\n");
+	}
 	if ((d_do_imbe || d_do_audio_output) && (framer->duid == 0x3 || framer->duid == 0xf)) {  // voice termination
 		op25audio.send_audio_flag(op25_audio::DRAIN);
 	}
@@ -460,7 +462,7 @@ p25p1_fdma::process_LCW(std::vector<uint8_t>& HB)
 					uint16_t grpaddr = (lcw[4] << 8) + lcw[5];
 					uint32_t srcaddr = (lcw[6] << 16) + (lcw[7] << 8) + lcw[8];
 
-          curr_src_id = srcaddr;
+          			curr_src_id = srcaddr;
 					s = "{\"srcaddr\" : " + std::to_string(srcaddr) + ", \"grpaddr\": " + std::to_string(grpaddr) + "}";
 					send_msg(s, -3);
 					if (d_debug >= 10)

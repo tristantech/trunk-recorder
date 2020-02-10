@@ -285,7 +285,7 @@ void p25_recorder::initialize_p25() {
   const char *wireshark_host = "127.0.0.1";
   bool do_imbe               = 1;
   bool do_output             = 1;
-  bool do_msgq               = 0;
+  bool do_msgq               = 1;
   bool do_audio_output       = 1;
   bool do_tdma               = 1;
   bool do_crypt              = 0;

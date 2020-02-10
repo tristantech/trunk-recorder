@@ -42,6 +42,7 @@ private:
 	int d_normalize_shift;
 	int d_normalize_fac;
 	bool d_use_float;
+	long curr_src_id;
 
   	char current_filename[255];
 
