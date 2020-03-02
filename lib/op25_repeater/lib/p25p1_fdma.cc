@@ -378,10 +378,10 @@ void
 p25p1_fdma::process_TTDU()
 {
 	process_duid(framer->duid, framer->nac, NULL, 0);
-	/*
+	
 	if (framer->duid == 0x3 || framer->duid == 0xf) {
 		fprintf (stderr, "Transmission Over\n");
-	}*/
+	}
 	if ((d_do_imbe || d_do_audio_output) && (framer->duid == 0x3 || framer->duid == 0xf)) {  // voice termination
 		op25audio.send_audio_flag(op25_audio::DRAIN);
 	}
@@ -680,10 +680,10 @@ p25p1_fdma::process_voice(const bit_vector& A)
       float std_dev = sqrt(error_history_sqrt/error_history_len);
 
       if (imbe_error >  std_dev) {
-        rx_status.spike_count++;
+        rx_status.spike_count++;/*
         if (d_debug >= 10) {
           fprintf(stderr, "SPIKE! Errors: %d \tStd Dev: %f \tAvg: %f \tLimit: %f\n", imbe_error, std_dev, error_history_avg, std_dev + error_history_avg );
-        }
+        }*/
       }
       rx_status.error_count += imbe_error;
       rx_status.total_len += 144;

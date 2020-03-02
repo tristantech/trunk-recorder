@@ -281,7 +281,7 @@ void p25_recorder::initialize_p25() {
 
 
   int udp_port               = 0;
-  int verbosity              = 0; // 10 = lots of debug messages
+  int verbosity              = 10; // 10 = lots of debug messages
   const char *wireshark_host = "127.0.0.1";
   bool do_imbe               = 1;
   bool do_output             = 1;

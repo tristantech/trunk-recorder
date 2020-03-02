@@ -215,13 +215,14 @@ if (x.size()<3) {
     return messages;
   }
 
-
+cout << " CMD1: " << fixed << hex << stack[1].cmd << " 0add: " << dec <<  stack[0].address << " 0full_add: " << stack[0].full_address  << " 1add: " << stack[1].address << " 1full_add: " << stack[1].full_address  << endl;
+      
   if (is_chan(stack[0].cmd, system) && stack[0].grp && getfreq(stack[0].cmd, system)) {
     message.talkgroup = stack[0].full_address;
     message.freq      = getfreq(stack[0].cmd, system);
 
     if ((stack[1].cmd == 0x308) || (stack[1].cmd == 0x321)) {
-      //cout << "NEW GRANT!! CMD1: " << fixed << hex << stack[1].cmd << " 0add: " << dec <<  stack[0].address << " 0full_add: " << stack[0].full_address  << " 1add: " << stack[1].address << " 1full_add: " << stack[1].full_address  << endl;
+      cout << "NEW GRANT!! CMD1: " << fixed << hex << stack[1].cmd << " 0add: " << dec <<  stack[0].address << " 0full_add: " << stack[0].full_address  << " 1add: " << stack[1].address << " 1full_add: " << stack[1].full_address  << endl;
       message.message_type = GRANT;
       message.source       = stack[1].full_address;
     } else  if (stack[1].cmd == 0x320) {
@@ -233,7 +234,6 @@ if (x.size()<3) {
       }        
     else {
       message.message_type = UPDATE;
-      //cout << "NEW UPDATE [ Freq: " << fixed << getfreq(stack[0].cmd) << " CMD0: " << hex << stack[0].cmd << " CMD1: " << hex << stack[1].cmd << " CMD2: " << hex << stack[2].cmd   << " ] " << " Grp: " << stack[0].grp << " Grp1: " << stack[1].grp << endl;
     }
 
     messages.push_back(message);
