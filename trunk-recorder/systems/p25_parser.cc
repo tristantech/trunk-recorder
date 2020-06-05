@@ -215,6 +215,7 @@ message.emergency = false;
 message.phase2_tdma = false;
 message.tdma_slot = 0;
 message.freq = 0;
+message.mode = TRUNKCALLMODE_P25; // P25 trunks never carry analog voice.
 
 
 unsigned long opcode = bitset_shift_mask(tsbk, 88, 0x3f); // x3f

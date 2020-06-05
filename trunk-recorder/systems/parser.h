@@ -15,6 +15,11 @@ enum MessageType {
 	UNKNOWN = 99
 };
 
+enum TrunkCallMode {
+	TRUNKCALLMODE_ANALOG = 0,
+	TRUNKCALLMODE_P25 = 1,
+};
+
 struct TrunkMessage {
 	MessageType message_type;
 	std::string meta;
@@ -29,6 +34,7 @@ struct TrunkMessage {
  	unsigned long sys_id;
 	unsigned long nac;
 	unsigned long wacn;
+	TrunkCallMode mode;
 };
 
 

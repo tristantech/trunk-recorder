@@ -582,11 +582,6 @@ int get_total_recorders() {
   return total_recorders;
 }
 
-/**
- * Method name: start_recorder
- * Description: <#description#>
- * Parameters: TrunkMessage message
- */
 bool replace(std::string& str, const std::string& from, const std::string& to) {
   size_t start_pos = str.find(from);
 
@@ -639,24 +634,24 @@ bool start_recorder(Call *call, TrunkMessage message, System *sys) {
         (source->get_max_hz() >= call->get_freq())) {
       source_found = true;
 
-      if (talkgroup)
-      {
-        if (talkgroup->mode == 'A') {
-          recorder = source->get_analog_recorder(talkgroup->get_priority());
-        } else {
-          recorder = source->get_digital_recorder(talkgroup->get_priority());
-        }
-      } else {
-        BOOST_LOG_TRIVIAL(info) << "[" << sys->get_short_name() << "]\tTG: " << call->get_talkgroup_display() << "\tFreq: " << FormatFreq(call->get_freq()) << "\tTG not in Talkgroup File ";
-
-        // A talkgroup was not found from the talkgroup file.
-          if (default_mode == "analog") {
-            recorder = source->get_analog_recorder(2);
-          } else {
-            recorder = source->get_digital_recorder(2);
-          }
+      // Default priority if none is specified in the talkgroups file.
+      int priority = 2;
+      if (talkgroup) {
+        priority = talkgroup->get_priority();
       }
-      //int total_recorders = get_total_recorders();
+
+      switch (message.mode) {
+        case TRUNKCALLMODE_ANALOG:
+          recorder = source->get_analog_recorder(priority);
+          break;
+        case TRUNKCALLMODE_P25:
+          recorder = source->get_digital_recorder(priority);
+          break;
+        default:
+          // Unknown call mode - we can't record this.
+          BOOST_LOG_TRIVIAL(error) << "[" << sys->get_short_name() << "]\tTG: " << call->get_talkgroup_display() << "\tFreq: " << FormatFreq(call->get_freq()) << "\tCall has unknown mode.";
+          return false;
+      }
 
       if (recorder) {
         if (message.meta.length()) {
